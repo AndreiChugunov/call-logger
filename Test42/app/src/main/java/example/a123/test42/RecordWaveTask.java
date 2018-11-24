@@ -33,19 +33,6 @@ class RecordWaveTask extends AsyncTask<File, Void, Object[]> {
 
     protected RecordWaveTask() {}
 
-    protected RecordWaveTask(Context ctx) {
-        setContext(ctx);
-    }
-
-    protected void setContext(Context ctx) {
-        this.ctx = ctx;
-    }
-
-    protected Context getContext(){
-        return ctx;
-    }
-
-
     //На практике заданные параметры рекорда могут разниться от устройства к устройству,
     //посему данный метод призван быть более-менее универсальным, однако у меня записывал
     //страшные звуки, в связи с чем успешно не использовался

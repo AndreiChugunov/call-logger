@@ -36,15 +36,18 @@ public class RecorderService extends Service {
     protected static void launchTask() {
         switch (recordTask.getStatus()) {
             case RUNNING:
-                Log.d("MyTag", "Task already running");
-//                Toast.makeText(ctx, "Task already running...", Toast.LENGTH_SHORT).show();
+                Log.d("MyTag", "RecorderService.launchTask(): Task already running");
                 return;
             case FINISHED:
+                Log.d("MyTag", "RecorderService.launchTask(): Task finished. Starting new...");
                 recordTask = new RecordWaveTask();
+                Log.d("MyTag", "RecorderService.launchTask(): Task finished. New task created");
                 break;
             case PENDING:
                 if (recordTask.isCancelled()) {
+                    Log.d("MyTag", "RecorderService.launchTask(): Task pending. Starting new...");
                     recordTask = new RecordWaveTask();
+                    Log.d("MyTag", "RecorderService.launchTask(): Task pending. New task created");
                 }
         }
 

@@ -15,6 +15,11 @@ public class CallReceiver extends BroadcastReceiver {
             String phoneState = intent.getStringExtra(TelephonyManager.EXTRA_STATE);
              if (phoneState.equals(TelephonyManager.EXTRA_STATE_OFFHOOK)) {
                  Log.d("Receiver Log", "State offhook");
+                 if (intent.getStringExtra("incoming number") == null) {
+                     Log.d("Receiver Log", "Outgoing call");
+                 } else {
+                     Log.d("Receiver Log", "Incoming call");
+                 }
                 //Телефон находится в режиме звонка (набор номера при исходящем звонке / разговор)
                  RecorderService.launchTask();
 

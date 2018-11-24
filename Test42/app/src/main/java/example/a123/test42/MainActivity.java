@@ -61,10 +61,9 @@ public class MainActivity extends AppCompatActivity {
             case PERMISSION_RECORD_AUDIO:
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     // Permission granted
-                    //launchTask();
+                    startService(new Intent(this, RecorderService.class));
                     //запустить демона
                 } else {
-                    startService(new Intent(this, RecorderService.class));
                     Toast.makeText(this, "Permission Denied", Toast.LENGTH_SHORT).show();
                 }
                 break;
