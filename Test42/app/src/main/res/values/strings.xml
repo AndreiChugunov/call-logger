@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Test42</string>
+    <string name="title_activity_preview_editor">PreviewEditorActivity</string>
 </resources>

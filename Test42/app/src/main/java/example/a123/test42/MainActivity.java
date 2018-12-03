@@ -43,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
         }
         // Permission already available
         startService(new Intent(this, RecorderService.class));
+        startService(new Intent(this, RecordedCallService.class));
     }
 
 //    private void checkTask()

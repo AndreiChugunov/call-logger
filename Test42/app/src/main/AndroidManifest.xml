@@ -28,13 +28,23 @@
         <service
             android:name=".RecorderService"
             android:enabled="true"
-            android:exported="true"></service>
+            android:exported="true" />
 
         <receiver android:name=".CallReceiver">
             <intent-filter>
-                <action android:name="android.intent.action.PHONE_STATE"/>
+                <action android:name="android.intent.action.PHONE_STATE" />
             </intent-filter>
         </receiver>
+
+        <service
+            android:name=".RecordedCallService"
+            android:enabled="true"
+            android:exported="true" />
+
+        <activity
+            android:name=".PreviewEditorActivity"
+            android:label="@string/title_activity_preview_editor" />
+        <activity android:name=".ShareActivity"></activity>
     </application>
 
 </manifest>
