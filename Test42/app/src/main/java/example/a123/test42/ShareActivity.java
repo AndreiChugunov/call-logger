@@ -17,10 +17,18 @@ public class ShareActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Intent intent = new Intent("com.sec.android.app.myfiles.PICK_DATA");
-        intent.putExtra("CONTENT_TYPE", "*/*");
-        intent.addCategory(Intent.CATEGORY_DEFAULT);
+//        Samsung file explorer needs not only custom action (com.sec.android.app.myfiles.PICK_DATA),
+//        but also category part (Intent.CATEGORY_DEFAULT) and mime-type should be passed as extra.
+
+//        Intent intent = new Intent("com.sec.android.app.myfiles.PICK_DATA");
+//        intent.putExtra("CONTENT_TYPE", "*/*");
+//        intent.addCategory(Intent.CATEGORY_DEFAULT);
+//        startActivityForResult(intent, 7);
+
+        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+        intent.setType("*/*");
         startActivityForResult(intent, 7);
+
     }
 
     @Override
