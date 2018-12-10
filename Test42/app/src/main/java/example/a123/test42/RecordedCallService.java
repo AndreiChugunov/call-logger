@@ -31,6 +31,7 @@ public class RecordedCallService extends Service {
         Notification.Action share = new Notification.Action(R.drawable.s, "Share", sharePendingIntent);
         Notification.Action edit = new Notification.Action(R.drawable.e, "Edit text file", editPendingIntent);
         Notification.Builder builder = new Notification.Builder(getApplicationContext());
+        System.out.println("Activity started");
         builder
                 .setSmallIcon(R.mipmap.phone)
                 .setLargeIcon(BitmapFactory.decodeResource(getApplicationContext().getResources(), R.drawable.ic_launcher_background))

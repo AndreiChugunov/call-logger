@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
         // Permission already available
-        startService(new Intent(this, RecorderService.class));
+        //startService(new Intent(this, RecorderService.class));
         startService(new Intent(this, RecordedCallService.class));
     }
 
