@@ -41,12 +41,12 @@
             android:name=".RecordedCallService"
             android:enabled="true"
             android:exported="true" />
-
         <activity
             android:name=".PreviewEditorActivity"
             android:label="@string/title_activity_preview_editor" />
         <activity android:name=".ShareActivity"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen"></activity>
+            android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen">
+        </activity>
     </application>
 
 </manifest>

@@ -1,6 +1,8 @@
 package example.a123.test42;
 
 import android.Manifest;
+import android.app.Notification;
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -13,6 +15,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.Toast;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -47,15 +50,21 @@ public class PreviewEditorActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.action_open:
+            case R.id.action_load:
                 openFile();
                 return true;
-            //case R.id.action_save:
-            //  saveFile();
-            //   return true;
-            default:
+            case R.id.action_share:
+                shareFile();
                 return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
+    }
+
+    private void shareFile() {
+        Intent intent = new Intent(this, ShareActivity.class);
+        startActivity(intent);
+
     }
 
     private String read(String input) {
