@@ -18,6 +18,7 @@ public class RecorderService extends Service {
     static File filesDir;
 
     public RecorderService() {
+
     }
 
     @Override
@@ -31,6 +32,11 @@ public class RecorderService extends Service {
         recordTask = new RecordWaveTask();
         filesDir = getFilesDir();
         super.onCreate();
+    }
+
+    @Override
+    public void onDestroy(){
+
     }
 
     protected static void launchTask() {
