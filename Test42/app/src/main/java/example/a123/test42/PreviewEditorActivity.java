@@ -1,17 +1,22 @@
 package example.a123.test42;
 
 import android.Manifest;
-import android.app.Notification;
-import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Html;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.StyleSpan;
+import android.view.ActionMode;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -27,6 +32,7 @@ public class PreviewEditorActivity extends AppCompatActivity {
     private static final int PERMISSION_REQUEST_STORAGE = 1000;
     private static final int READ_REQUEST_CODE = 42;
     private EditText mEditText;
+    private File currentFile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +45,47 @@ public class PreviewEditorActivity extends AppCompatActivity {
                 != PackageManager.PERMISSION_GRANTED) {
             requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, PERMISSION_REQUEST_STORAGE);
         }
+
+        ActionMode.Callback actionModeCallBack = new ActionMode.Callback() {
+            @Override
+            public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+                MenuInflater inflater = mode.getMenuInflater();
+                inflater.inflate(R.menu.my_menu_two, menu);
+                return true;
+            }
+
+            @Override
+            public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+                return false;
+            }
+
+            @Override
+            public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.action_bold:
+                        int startSelection = mEditText.getSelectionStart();
+                        int endSelection = mEditText.getSelectionEnd();
+                        CharSequence selectedText = mEditText.getText().subSequence(startSelection, endSelection);
+                        SpannableString string = new SpannableString(selectedText);
+                        string.setSpan(new StyleSpan(Typeface.BOLD), 0, selectedText.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                        mEditText.setText(mEditText.getText().replace(startSelection, endSelection, string, 0, string.length()));
+
+                    default:
+                        return false;
+                }
+            }
+
+            @Override
+            public void onDestroyActionMode(ActionMode mode) {
+                // actionMode = null;
+                // toggleButton.setChecked(false);
+                return;
+            }
+        };
+
+        mEditText.setTextIsSelectable(true);
+        mEditText.setCustomSelectionActionModeCallback(actionModeCallBack);
+
     }
 
     @Override
@@ -64,6 +111,10 @@ public class PreviewEditorActivity extends AppCompatActivity {
     private void shareFile() {
         Intent intent = new Intent(this, ShareActivity.class);
         startActivity(intent);
+
+    }
+
+    private void write() {
 
     }
 

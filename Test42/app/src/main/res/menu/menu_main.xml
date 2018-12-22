@@ -3,16 +3,18 @@
     <item
         android:id="@+id/action_save"
         android:orderInCategory="100"
+        android:title="Save"
+
         />
     <item
         android:id="@+id/action_load"
         android:orderInCategory="100"
-        android:title="load"
+        android:title="Load"
         />
     <item
         android:id="@+id/action_share"
         android:orderInCategory="100"
-        android:title="share"
+        android:title="Share"
         />
 
 
