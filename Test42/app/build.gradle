@@ -4,7 +4,7 @@ android {
     compileSdkVersion 28
     defaultConfig {
         applicationId "example.a123.test42"
-        minSdkVersion 24
+        minSdkVersion 28
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
@@ -16,6 +16,16 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    productFlavors {
+    }
+    defaultConfig {
+        multiDexEnabled true
+    }
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/INDEX.LIST'
+        exclude 'META-INF/io.netty.versions.properties'
+    }
 }
 
 dependencies {
@@ -25,4 +35,11 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    implementation 'com.google.cloud:google-cloud-speech:0.74.0-beta'
+    implementation 'io.grpc:grpc-netty:1.17.1'
+    implementation 'io.netty:netty-tcnative:2.0.20.Final'
+    implementation 'org.eclipse.jetty:jetty-alpn-parent:9.4.14.v20181114'
+    implementation 'net.databinder.conscript:conscript_2.9.2:0.4.5-beta1'
+    implementation 'io.netty:netty-tcnative-boringssl-static:2.0.20.Final'
+    implementation 'org.apache.commons:commons-parent:47'
 }
