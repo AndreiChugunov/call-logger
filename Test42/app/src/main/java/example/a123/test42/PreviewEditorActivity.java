@@ -1,16 +1,19 @@
 package example.a123.test42;
 
 import android.Manifest;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Typeface;
+import android.icu.text.SimpleDateFormat;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.text.Html;
+import android.text.InputType;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.StyleSpan;
@@ -23,8 +26,11 @@ import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.net.URLConnection;
 
 
 public class PreviewEditorActivity extends AppCompatActivity {
@@ -33,6 +39,7 @@ public class PreviewEditorActivity extends AppCompatActivity {
     private static final int READ_REQUEST_CODE = 42;
     private EditText mEditText;
     private File currentFile;
+    private String m_Text = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,7 +76,7 @@ public class PreviewEditorActivity extends AppCompatActivity {
                         SpannableString string = new SpannableString(selectedText);
                         string.setSpan(new StyleSpan(Typeface.BOLD), 0, selectedText.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                         mEditText.setText(mEditText.getText().replace(startSelection, endSelection, string, 0, string.length()));
-
+                        return true;
                     default:
                         return false;
                 }
@@ -103,23 +110,62 @@ public class PreviewEditorActivity extends AppCompatActivity {
             case R.id.action_share:
                 shareFile();
                 return true;
+            case R.id.action_save:
+                write();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
 
     private void shareFile() {
-        Intent intent = new Intent(this, ShareActivity.class);
-        startActivity(intent);
-
+        Intent intentShareFile = new Intent("android.intent.action.SEND");
+        intentShareFile.setType(URLConnection.guessContentTypeFromName(currentFile.getName()));
+        Intent data = new Intent();
+        data.setData(Uri.fromFile(currentFile));
+        intentShareFile.putExtra(Intent.EXTRA_STREAM, data.getData());
+        startActivity(Intent.createChooser(intentShareFile, "Share File"));
     }
 
     private void write() {
 
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("File name");
+        final EditText input = new EditText(this);
+        input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_CLASS_TEXT);
+        builder.setView(input);
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                m_Text = input.getText().toString();
+                m_Text += ".txt";
+
+                try {
+                    FileOutputStream fileOutputStream = openFileOutput(m_Text,MODE_APPEND);
+                    fileOutputStream.write(mEditText.getText().toString().getBytes());
+                    fileOutputStream.close();
+                    Toast.makeText(getApplicationContext(), m_Text + " saved successfully", Toast.LENGTH_LONG).show();
+
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+        builder.show();
     }
 
     private String read(String input) {
         File file = new File(Environment.getExternalStorageDirectory(), input);
+        currentFile = file;
         StringBuilder text = new StringBuilder();
         try {
             BufferedReader br = new BufferedReader(new FileReader(file));

@@ -47,7 +47,9 @@ public class ShareActivity extends Activity {
 
             startActivity(Intent.createChooser(intentShareFile, "Share File"));
         }
-        stopService(new Intent(ShareActivity.this, RecordedCallService.class));
+        //stopService(new Intent(ShareActivity.this, RecordedCallService.class));
+        super.finish();
+
     }
 }
 
