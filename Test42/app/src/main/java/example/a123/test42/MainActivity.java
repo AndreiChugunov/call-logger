@@ -2,6 +2,7 @@ package example.a123.test42;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
@@ -13,6 +14,7 @@ import android.support.v4.content.ContextCompat;
 
 import android.widget.Toast;
 
+import java.io.File;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -39,8 +41,14 @@ public class MainActivity extends AppCompatActivity {
         }
         // Permission already available
         //startService(new Intent(this, RecorderService.class));
+        File file = new File("/storage/emulated/0/Download/computer.txt");
+        System.out.println(file.getPath());
+        System.out.println(file.exists());
 
-        startService(new Intent(this, RecordedCallService.class));
+        Intent intent = new Intent(this, RecordedCallService.class);
+        intent.putExtra("File", file.getPath());
+
+        startService(intent);
     }
 
 //    private void checkTask()

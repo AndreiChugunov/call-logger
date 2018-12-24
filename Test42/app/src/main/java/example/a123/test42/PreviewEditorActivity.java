@@ -50,6 +50,7 @@ public class PreviewEditorActivity extends AppCompatActivity {
         setContentView(R.layout.activity_preview_editor);
 
         mEditText = findViewById(R.id.editText);
+        mEditText.setText(readInit(RecordedCallService.filepath));
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
                 != PackageManager.PERMISSION_GRANTED) {
@@ -112,7 +113,6 @@ public class PreviewEditorActivity extends AppCompatActivity {
                 }
             }
         });
-
 
     }
 
@@ -189,6 +189,24 @@ public class PreviewEditorActivity extends AppCompatActivity {
             }
         });
         builder.show();
+    }
+
+    private String readInit(String path){
+        File file = new File(path);
+        currentFile = file;
+        StringBuilder text = new StringBuilder();
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(file));
+            String line;
+            while ((line = br.readLine()) != null) {
+                text.append(line);
+                text.append("\n");
+            }
+            br.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return text.toString();
     }
 
     private String read(String input) {

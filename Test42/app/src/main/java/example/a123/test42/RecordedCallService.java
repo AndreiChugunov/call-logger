@@ -7,7 +7,9 @@ import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
+import android.os.Binder;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.IBinder;
 import android.support.annotation.RequiresApi;
 
@@ -15,7 +17,7 @@ public class RecordedCallService extends Service {
 
     private NotificationManager nm;
     private final int NOTIFICATION_ID = 127;
-
+    public static String filepath;
     public RecordedCallService() {
     }
 
@@ -24,8 +26,10 @@ public class RecordedCallService extends Service {
     public void onCreate() {
         super.onCreate();
         Intent shareIntent = new Intent(this, ShareActivity.class);
+        shareIntent.putExtra("File", filepath);
         Intent editIntent = new Intent(this, PreviewEditorActivity.class);
-        PendingIntent sharePendingIntent = PendingIntent.getActivity(this, 0, shareIntent, 0);
+        int uniqueInt = (int) (System.currentTimeMillis() & 0xfffffff);
+        PendingIntent sharePendingIntent = PendingIntent.getActivity(this, uniqueInt, shareIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         PendingIntent editPendingIntent = PendingIntent.getActivity(this, 0, editIntent, 0);
         nm = (NotificationManager) getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
         Notification.Action share = new Notification.Action(R.drawable.s, "Share", sharePendingIntent);
@@ -39,6 +43,7 @@ public class RecordedCallService extends Service {
                 .setWhen(System.currentTimeMillis())
                 .setAutoCancel(true)
                 .setContentTitle("New call recorded")
+
                 .addAction(edit)
                 .addAction(share);
 
@@ -48,9 +53,14 @@ public class RecordedCallService extends Service {
 
     @Override
     public IBinder onBind(Intent intent) {
-        // TODO: Return the communication channel to the service.
-        throw new UnsupportedOperationException("Not yet implemented");
+        return new Binder();
 
+    }
+
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        filepath = intent.getExtras().getString("File");
+        return super.onStartCommand(intent, flags, startId);
     }
 
     @Override
@@ -59,3 +69,4 @@ public class RecordedCallService extends Service {
         nm.cancel(NOTIFICATION_ID);
     }
 }
+
