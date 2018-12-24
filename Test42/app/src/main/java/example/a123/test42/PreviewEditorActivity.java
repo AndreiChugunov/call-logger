@@ -161,17 +161,14 @@ public class PreviewEditorActivity extends AppCompatActivity {
                 m_Text += ".txt";
 
                 try {
-                    File dir = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/Documents/CallRecords");
+                    File dir = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/Download/records");
                     dir.mkdirs();
                     if (new File(dir, m_Text).exists()) {
                         Toast.makeText(getApplicationContext(), "File with a name " + m_Text + " already exists.", Toast.LENGTH_LONG).show();
                         write();
                     } else {
                         File file = new File(dir, m_Text);
-
                         FileOutputStream fileOutputStream = new FileOutputStream(file);
-
-                        //FileOutputStream fileOutputStream = openFileOutput(m_Text, MODE_APPEND);
                         fileOutputStream.write(mEditText.getText().toString().getBytes());
                         Field field = FileOutputStream.class.getDeclaredField("path");
                         field.setAccessible(true);
@@ -254,8 +251,10 @@ public class PreviewEditorActivity extends AppCompatActivity {
             if (data != null) {
                 Uri uri = data.getData();
                 String path = uri.getPath();
+
+                System.out.println(path);
                 path = path.substring(path.indexOf(":") + 1);
-                Toast.makeText(this, "" + path, Toast.LENGTH_SHORT).show();
+               //Toast.makeText(this, "" + path, Toast.LENGTH_SHORT).show();
                 mEditText.setText(read(path));
             }
         }
