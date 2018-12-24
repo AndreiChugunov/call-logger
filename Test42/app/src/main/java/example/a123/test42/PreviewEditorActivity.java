@@ -97,7 +97,7 @@ public class PreviewEditorActivity extends AppCompatActivity {
 
         mEditText.setTextIsSelectable(true);
         mEditText.setCustomSelectionActionModeCallback(actionModeCallBack);
-        mEditText.setOnClickListener(new View.OnClickListener(){
+        mEditText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (mEditText.isEnabled() && mEditText.isFocusable()) {
@@ -106,8 +106,8 @@ public class PreviewEditorActivity extends AppCompatActivity {
                         public void run() {
                             Context context = getApplicationContext();
                             final InputMethodManager imm =
-                                    (InputMethodManager)context.getSystemService(Context.INPUT_METHOD_SERVICE);
-                            imm.showSoftInput(mEditText,InputMethodManager.SHOW_IMPLICIT);
+                                    (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+                            imm.showSoftInput(mEditText, InputMethodManager.SHOW_IMPLICIT);
                         }
                     });
                 }
@@ -161,15 +161,27 @@ public class PreviewEditorActivity extends AppCompatActivity {
                 m_Text += ".txt";
 
                 try {
-                    FileOutputStream fileOutputStream = openFileOutput(m_Text, MODE_APPEND);
-                    fileOutputStream.write(mEditText.getText().toString().getBytes());
-                    Field field = FileOutputStream.class.getDeclaredField("path");
-                    field.setAccessible(true);
-                    String path = (String) field.get(fileOutputStream);
-                    System.out.println(path);
-                    currentFile = new File(path);
-                    fileOutputStream.close();
-                    Toast.makeText(getApplicationContext(), m_Text + " saved successfully", Toast.LENGTH_LONG).show();
+                    File dir = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/Documents/CallRecords");
+                    dir.mkdirs();
+                    if (new File(dir, m_Text).exists()) {
+                        Toast.makeText(getApplicationContext(), "File with a name " + m_Text + " already exists.", Toast.LENGTH_LONG).show();
+                        write();
+                    } else {
+                        File file = new File(dir, m_Text);
+
+                        FileOutputStream fileOutputStream = new FileOutputStream(file);
+
+                        //FileOutputStream fileOutputStream = openFileOutput(m_Text, MODE_APPEND);
+                        fileOutputStream.write(mEditText.getText().toString().getBytes());
+                        Field field = FileOutputStream.class.getDeclaredField("path");
+                        field.setAccessible(true);
+                        String path = (String) field.get(fileOutputStream);
+                        System.out.println(path);
+                        currentFile = new File(path);
+                        fileOutputStream.close();
+                        Toast.makeText(getApplicationContext(), m_Text + " saved successfully", Toast.LENGTH_LONG).show();
+                    }
+
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
                 } catch (IOException e) {
@@ -191,7 +203,7 @@ public class PreviewEditorActivity extends AppCompatActivity {
         builder.show();
     }
 
-    private String readInit(String path){
+    private String readInit(String path) {
         File file = new File(path);
         currentFile = file;
         StringBuilder text = new StringBuilder();
