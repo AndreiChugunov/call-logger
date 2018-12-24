@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "calllogger",
+  "private_key_id": "36937e1e0612fe6c7f050aca4ac21583bb24dc77",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDXx3ZyEQHjxIly\ngrhH1QyLf6169Vr8L81dx9Q0QPds8gvF7uMIAvKstLaYh1hqp/YxO5Lgn1egNQEq\n5ALh9MvHIFX+eioDyTCP2LqLDlwJyfp0nIrSOJ12ptYM5pJ38DuAJq6mYhIxd9ZP\nM5Mj7Nc6GB7io9EpT8zTdJG7I5Dqz0DeiLf+Iyaq03O215FGrPZHdRYzr471Dphq\nYZL8/fopG0EtQStORE6cyLBWASOI9bhCvpha7f8LmPFxq+tBrPvLaPZLqUCrnWav\nRAUuE/HtrrdGtZVdickbF4GMKyEpxBvKQd46AuqbammWVokEabl026+3Kdrgv0Ry\nGDaz0ca9AgMBAAECggEACY8BR7n0z/laWgjBZL6NgOEl4bRcafSCJUffYMs0oA5e\n3Xn2Hlo8aXsokDwv+1WNGeQ43vDKvxg/Vijl7yAwJhY1c6xHZTCJ5q1j929U6MLE\n8K/TPyRukUgrDkTpMx1LaCNj3uSpnVMLhX7+4yYFk2y9yC4X62ZovUCaM2SMHGKq\nHtbO95UQlonc9xQVry/46cV7rI7ZByX7o7HmRjMWP9Y9Jgmrmn1GcJv68nO0HpEB\nI3lmx5SXNNKa0InctLh82tRjFPVOFkmKE0tyUMz8WFwEygtTpZmgJj2jR+boKaSY\nD7tKKD4r4wGbCi42ULs6EH4dzKt/khOgCDzj19oiHwKBgQD3T7gqqPly5FKaEAkw\nje86f92QIm+PiyEoCOoPJEk8tsAIwnMBePlxGjUaSGx9Uqnub11p9g/2sRV+SN45\naZqo6Y5xCqtegMyt04qEaxMMntzqV8v0WNz9T6rEjCxFa/f8HA4nbWZy5p5XKM3X\nwcS7lTqSSMBpFKzPMd6eDgQYhwKBgQDfXCWl06sa/sQlRU33FoGdlgeIAPMVNYxB\nIVPVnBC+xq+6ImV/GnrionmkRUg8QVZDgC28Rst5lXLjrbf3XcdhENyDKnjJf4t0\nV7uJPAwnuIPHIyJTh5F3wa9bJYObZTLGsXpPxfQ9KzGQB3VlaorC9wZsF3SMcz5J\n0eAHMFXrmwKBgQDJBT13P33zS29w1tQBaX0omcJoY/U2QiqjNgu6Xw5AkXMqK5P7\ngG+Q5XKAeJnmjAigTFkrxdxX8ry7t1Maa6JQ5fboH3oICL1WFXqkA7yqJ3795Htd\nk9Wc+OKffCiIDSi2/b7rgVsizh2qTvpyA4h7yOKhAQ2U3D9S8wA2jMH7hQKBgDfB\n4QQMWuJaRsynCFduHt0f3rFsy0G4JFL95tekJen531Qv0fZwvcxlksgXI3knNkmT\nbddaNOEdFZkQfKQbnPH2K5XyvERQupdIb2BKxR4FSaAkfSUs6ntitkuiib/4+zvu\nggH4AIhkh/LUadHvTsRstgW1tTp6akozQiGJR2mRAoGBAMFaFMo9jCQh5nwXIHjL\nofgngXMWiL60/mRvKGZfDpAawHqMZck0iszCxAw/tRXLYNmLltzQ1oqW7+FLPznS\nTLpYdtVnLnN/YVOUBSmifd2OFswoGyL7GeRh+tFyu6bR+/w2caWvit1/6lb7h+tA\nfSsSdOiMtKKwjTJXUoVDBJXG\n-----END PRIVATE KEY-----\n",
+  "client_email": "calllogger@calllogger.iam.gserviceaccount.com",
+  "client_id": "101182811910411139446",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/calllogger%40calllogger.iam.gserviceaccount.com"
+}

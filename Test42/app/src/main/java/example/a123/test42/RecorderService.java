@@ -10,12 +10,17 @@ import android.util.Log;
 import android.widget.Toast;
 
 import java.io.File;
+import java.io.FileWriter;
+import java.util.ArrayList;
+import java.util.List;
 
 public class RecorderService extends Service {
 
     public static RecordWaveTask recordTask = null;
+    public static Recognition recognitionTask = null;
     static Context ctx = null;
     static File filesDir;
+    public static List<String> recognizedText;
 
     public RecorderService() {
 
@@ -30,6 +35,8 @@ public class RecorderService extends Service {
     public void onCreate()
     {
         recordTask = new RecordWaveTask();
+        recognitionTask = new Recognition();
+        recognizedText = new ArrayList<String>();
         filesDir = getFilesDir();
         super.onCreate();
     }
@@ -63,6 +70,15 @@ public class RecorderService extends Service {
         }
         Log.d("MyTag", wavFile.getAbsolutePath());
         recordTask.execute(wavFile);
+        try {
+            recognizedText = recognitionTask.recognizeWav(wavFile.getAbsolutePath());
+            FileWriter writer = new FileWriter(filesDir + "recording_" + System.currentTimeMillis() / 1000 + ".txt");
+            for(String str: recognizedText) {
+                writer.write(str);
+            }
+            writer.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
-
 }
