@@ -3,4 +3,5 @@
     <string name="main_btn_start">Run</string>
     <string name="main_btn_stop">Don\'t Run</string>
     <string name="logo_desc">Stenorgrapher</string>
+    <string name="title_activity_preview_editor">PreviewEditorActivity</string>
 </resources>
