@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -14,12 +13,8 @@ import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.text.InputType;
-import android.text.Spannable;
-import android.text.SpannableString;
-import android.text.style.StyleSpan;
-import android.view.ActionMode;
 import android.view.Menu;
-import android.view.MenuInflater;
+
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -56,7 +51,7 @@ public class PreviewEditorActivity extends AppCompatActivity {
                 != PackageManager.PERMISSION_GRANTED) {
             requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, PERMISSION_REQUEST_STORAGE);
         }
-
+/*
         ActionMode.Callback actionModeCallBack = new ActionMode.Callback() {
             @Override
             public boolean onCreateActionMode(ActionMode mode, Menu menu) {
@@ -94,9 +89,9 @@ public class PreviewEditorActivity extends AppCompatActivity {
                 return;
             }
         };
-
+*/
         mEditText.setTextIsSelectable(true);
-        mEditText.setCustomSelectionActionModeCallback(actionModeCallBack);
+      //  mEditText.setCustomSelectionActionModeCallback(actionModeCallBack);
         mEditText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -158,7 +153,7 @@ public class PreviewEditorActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 m_Text = input.getText().toString();
-                m_Text += ".txt";
+                m_Text += ".rtf";
 
                 try {
                     File dir = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/Download/records");
@@ -169,7 +164,7 @@ public class PreviewEditorActivity extends AppCompatActivity {
                     } else {
                         File file = new File(dir, m_Text);
                         FileOutputStream fileOutputStream = new FileOutputStream(file);
-                        fileOutputStream.write(mEditText.getText().toString().getBytes());
+                        fileOutputStream.write(mEditText.getEditableText().toString().getBytes());
                         Field field = FileOutputStream.class.getDeclaredField("path");
                         field.setAccessible(true);
                         String path = (String) field.get(fileOutputStream);
