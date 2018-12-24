@@ -2,11 +2,11 @@ package example.a123.test42;
 
 import android.Manifest;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Typeface;
-import android.icu.text.SimpleDateFormat;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -21,6 +21,8 @@ import android.view.ActionMode;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -30,6 +32,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.net.URLConnection;
 
 
@@ -72,6 +75,7 @@ public class PreviewEditorActivity extends AppCompatActivity {
                     case R.id.action_bold:
                         int startSelection = mEditText.getSelectionStart();
                         int endSelection = mEditText.getSelectionEnd();
+
                         CharSequence selectedText = mEditText.getText().subSequence(startSelection, endSelection);
                         SpannableString string = new SpannableString(selectedText);
                         string.setSpan(new StyleSpan(Typeface.BOLD), 0, selectedText.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
@@ -92,6 +96,23 @@ public class PreviewEditorActivity extends AppCompatActivity {
 
         mEditText.setTextIsSelectable(true);
         mEditText.setCustomSelectionActionModeCallback(actionModeCallBack);
+        mEditText.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                if (mEditText.isEnabled() && mEditText.isFocusable()) {
+                    mEditText.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            Context context = getApplicationContext();
+                            final InputMethodManager imm =
+                                    (InputMethodManager)context.getSystemService(Context.INPUT_METHOD_SERVICE);
+                            imm.showSoftInput(mEditText,InputMethodManager.SHOW_IMPLICIT);
+                        }
+                    });
+                }
+            }
+        });
+
 
     }
 
@@ -128,7 +149,6 @@ public class PreviewEditorActivity extends AppCompatActivity {
     }
 
     private void write() {
-
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("File name");
         final EditText input = new EditText(this);
@@ -141,14 +161,22 @@ public class PreviewEditorActivity extends AppCompatActivity {
                 m_Text += ".txt";
 
                 try {
-                    FileOutputStream fileOutputStream = openFileOutput(m_Text,MODE_APPEND);
+                    FileOutputStream fileOutputStream = openFileOutput(m_Text, MODE_APPEND);
                     fileOutputStream.write(mEditText.getText().toString().getBytes());
+                    Field field = FileOutputStream.class.getDeclaredField("path");
+                    field.setAccessible(true);
+                    String path = (String) field.get(fileOutputStream);
+                    System.out.println(path);
+                    currentFile = new File(path);
                     fileOutputStream.close();
                     Toast.makeText(getApplicationContext(), m_Text + " saved successfully", Toast.LENGTH_LONG).show();
-
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
                 } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (NoSuchFieldException e) {
+                    e.printStackTrace();
+                } catch (IllegalAccessException e) {
                     e.printStackTrace();
                 }
 

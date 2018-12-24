@@ -7,16 +7,12 @@ import android.os.Bundle;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
-import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-import android.util.Log;
-import android.view.View;
+
 import android.widget.Toast;
 
-import java.io.File;
-import java.io.Serializable;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -43,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
         }
         // Permission already available
         //startService(new Intent(this, RecorderService.class));
+
         startService(new Intent(this, RecordedCallService.class));
     }
 
