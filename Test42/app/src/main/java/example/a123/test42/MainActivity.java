@@ -3,12 +3,12 @@ package example.a123.test42;
 import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
-import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -18,7 +18,6 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import java.io.File;
-import java.io.Serializable;
 
 public class MainActivity extends AppCompatActivity {
 

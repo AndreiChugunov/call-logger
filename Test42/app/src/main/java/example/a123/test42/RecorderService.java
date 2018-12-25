@@ -71,7 +71,8 @@ public class RecorderService extends Service {
         Log.d("MyTag", wavFile.getAbsolutePath());
         recordTask.execute(wavFile);
         try {
-            recognizedText = recognitionTask.recognizeWav(wavFile.getAbsolutePath());
+            //recognizedText = recognitionTask.recognizeWav(wavFile.getAbsolutePath());
+            recognizedText.add(("test"));
             FileWriter writer = new FileWriter(filesDir + "recording_" + System.currentTimeMillis() / 1000 + ".txt");
             for(String str: recognizedText) {
                 writer.write(str);

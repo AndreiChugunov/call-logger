@@ -22,13 +22,13 @@ public class Recognition {
     /**
      * Demonstrates using the Speech API to transcribe an audio file.
      */
-    public List<String> recognizeWav(String pathToSoundFile) throws Exception {
+    public static void main(String... pathToSoundFile) throws Exception {
         List<String> resultingList = new ArrayList<String>();
         // Instantiates a client
         try (SpeechClient speechClient = SpeechClient.create()) {
             // The path to the audio file to transcribe
-            String fileName = pathToSoundFile;
-            //String fileName = "./app/src/main/res/raw/sample.wav";
+            //String fileName = pathToSoundFile;
+            String fileName = "./app/src/main/res/raw/sample.wav";
             // Reads the audio file into memory
             Path path = Paths.get(fileName);
             byte[] data = Files.readAllBytes(path);
@@ -69,6 +69,6 @@ public class Recognition {
                 //System.out.println("Transcription:" + resultRec);
             }
         }
-        return resultingList;
+        //return resultingList;
     }
 }

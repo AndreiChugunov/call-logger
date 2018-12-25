@@ -37,7 +37,7 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     implementation 'com.google.cloud:google-cloud-speech:0.74.0-beta'
     implementation 'io.grpc:grpc-netty:1.17.1'
-    implementation 'io.netty:netty-tcnative:2.0.20.Final'
+    //implementation 'io.netty:netty-tcnative:2.0.20.Final'
     implementation 'org.eclipse.jetty:jetty-alpn-parent:9.4.14.v20181114'
     implementation 'net.databinder.conscript:conscript_2.9.2:0.4.5-beta1'
     implementation 'io.netty:netty-tcnative-boringssl-static:2.0.20.Final'
